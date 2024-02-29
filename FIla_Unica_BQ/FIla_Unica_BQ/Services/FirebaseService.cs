@@ -47,14 +47,12 @@ namespace Fila_Unica_BQ.Services
             return candidatos.Where(a => a.ProtocoloId == ProtocoloId).FirstOrDefault();
         }
 
-        public async Task AddEscola(int CodEscola, string NomeEscola, string EnderecoEscola, string FoneEscola, int opcao1, int opcao2, int opcao3)
+        public async Task AddEscolaCandidato(int CodEscola, string NomeEscola, int opcao1, int opcao2, int opcao3)
         {
-            await firebase.Child("Escolas").PostAsync(new Escola()
+            await firebase.Child("EscolaCandidatos").PostAsync(new EscolaCandidato()
             {
                 EscolaCod = CodEscola,
                 EscolaNome = NomeEscola,
-                EscEndereco = EnderecoEscola,
-                EscFone = FoneEscola,
                 Opcao1 = opcao1,
                 Opcao2 = opcao2,
                 Opcao3 = opcao3,
@@ -62,14 +60,12 @@ namespace Fila_Unica_BQ.Services
             });
         }
 
-        public async Task<List<Escola>> GetEscolas()
+        public async Task<List<EscolaCandidato>> GetEscolaCandidatos()
         {
-            return (await firebase.Child("Escolas").OnceAsync<Escola>()).Select(item => new Escola
+            return (await firebase.Child("EscolaCandidatos").OnceAsync<EscolaCandidato>()).Select(item => new EscolaCandidato
             {
                 EscolaCod = item.Object.EscolaCod,
                 EscolaNome = item.Object.EscolaNome,
-                EscEndereco = item.Object.EscEndereco,
-                EscFone = item.Object.EscFone,
                 Opcao1 = item.Object.Opcao1,
                 Opcao2 = item.Object.Opcao2,
                 Opcao3 = item.Object.Opcao3,
@@ -77,12 +73,104 @@ namespace Fila_Unica_BQ.Services
             }).ToList();
         }
 
-        public async Task<Escola> GetEscola(int codigo)
+        public async Task<EscolaCandidato> GetEscolaCandidato(int codigo)
         {
-            var escolas = await GetEscolas();
-            await firebase.Child("Escolas").OnceAsync<Escola>();
+            var escolas = await GetEscolaCandidatos();
+            await firebase.Child("EscolaCandidatos").OnceAsync<EscolaCandidato>();
             return escolas.Where(a => a.EscolaCod == codigo).FirstOrDefault();
         }
+
+        public async Task AddInfoEscola(int codigo,
+                                        string endereco, 
+                                        string bairro,
+                                        string cep,
+                                        string cnpj,
+                                        string fone,
+                                        string email,
+                                        string diretor,
+                                        string coordenador,
+                                        string presidente)
+        {
+            await firebase.Child("InfoEscola").PostAsync(new InfoEscola()
+            {
+                EscolaCod = codigo,
+                EscolaEnd = endereco,
+                EscolaBairro = bairro,
+                EscolaCEP = cep,
+                EscolaCNPJ = cnpj,
+                EscolaFone = fone,
+                EscolaEmail = email,
+                EscolaDiretor = diretor,
+                EscolaCoord = coordenador,
+                EscolaPresidente = presidente
+            });
+        }
+
+        public async Task UpdateEscola(int codigo,
+                                        string endereco,
+                                        string bairro,
+                                        string cep,
+                                        string cnpj,
+                                        string fone,
+                                        string email,
+                                        string diretor,
+                                        string coordenador,
+                                        string presidente)
+        {
+            var toUpdateContato = (await firebase
+              .Child("InfoEscola")
+                .OnceAsync<InfoEscola>())
+                   .Where(a => a.Object.EscolaCod == codigo).FirstOrDefault();
+            await firebase
+              .Child("InfoEscola")
+                .Child(toUpdateContato.Key)
+                  .PutAsync(new InfoEscola()
+                  {
+                      EscolaCod = codigo,
+                      EscolaEnd = endereco,
+                      EscolaBairro = bairro,
+                      EscolaCEP = cep,
+                      EscolaCNPJ = cnpj,
+                      EscolaFone = fone,
+                      EscolaEmail = email,
+                      EscolaDiretor = diretor,
+                      EscolaCoord = coordenador,
+                      EscolaPresidente = presidente
+                  });
+        }
+
+        public async Task<List<InfoEscola>> GetEscolas()
+        {
+            string Nome_Escola = "";
+            var escola = await GetEscolaCandidato(Dados_gerais.CodigoEscola);
+            if (escola != null)
+            {
+                Nome_Escola = escola.EscolaNome;
+            }
+
+            return (await firebase.Child("InfoEscola").OnceAsync<InfoEscola>()).Select(item => new InfoEscola
+            {
+                EscolaCod = item.Object.EscolaCod,
+                EscolaEnd = item.Object.EscolaEnd,
+                EscolaBairro = item.Object.EscolaBairro,
+                EscolaCEP = item.Object.EscolaCEP,
+                EscolaCNPJ = item.Object.EscolaCNPJ,
+                EscolaFone = item.Object.EscolaFone,
+                EscolaEmail=item.Object.EscolaEmail,
+                EscolaNome = Nome_Escola,
+                EscolaDiretor = item.Object.EscolaDiretor,
+                EscolaCoord = item.Object.EscolaCoord,
+                EscolaPresidente = item.Object.EscolaPresidente
+            }).ToList();
+        }
+
+        public async Task<InfoEscola> GetEscola(int codescola)
+        {
+            var escolas = await GetEscolas();
+            await firebase.Child("InfoEscola").OnceAsync<InfoEscola>();
+            return escolas.Where(a => a.EscolaCod == codescola).FirstOrDefault();
+        }
+
 
         public async Task Atualiza_Data()
         {
@@ -97,7 +185,7 @@ namespace Fila_Unica_BQ.Services
 
         public async Task DeletaEscolas()
         {
-            await firebase.Child("Escolas").DeleteAsync();
+            await firebase.Child("EscolaCandidatos").DeleteAsync();
         }
     }
 }

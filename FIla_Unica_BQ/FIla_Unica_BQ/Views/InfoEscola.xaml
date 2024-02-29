@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Fila_Unica_BQ.Views.InfoEscola"
+             xmlns:controls="clr-namespace:Fila_Unica_BQ.Controls;assembly=Fila_Unica_BQ"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             x:Name="Info_Escola">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary Source="/Styles/TemaEscuro.xaml"/>
+        <ResourceDictionary>
+            <Style TargetType="controls:StandardEntry">
+                <Setter Property="BackgroundColor" Value="#31FFFFFF"/>
+                <Setter Property="BorderColor" Value="Gray"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="PlaceholderColor" Value="DarkGray"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="refresh.png"
+                     Order="Primary"
+                     Priority="0"
+                     Clicked="OnItemAtualiza_Lista">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>-->
+
+    <StackLayout>
+        <StackLayout BackgroundColor="#FF6830" Padding="20,10">
+            <Label x:Name="lbl_Titulo" TextColor="White" FontSize="Large" Margin="0,0,0,-8"/>
+            <Label x:Name="lbl_SubTitulo" TextColor="White" FontSize="Medium"/>
+        </StackLayout>
+
+        <StackLayout>
+            <Label x:Name="lbl_DataAtualizaco" Padding="15,0" HorizontalOptions="EndAndExpand"/>
+        </StackLayout>
+
+        <AbsoluteLayout>
+            <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout >
+                    <Grid Padding="20,0,20,20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.ColumnSpan="2" FontSize="Body" Text="Centro de Educação"/>
+                        <Frame Grid.Row="1" Grid.ColumnSpan="2">
+                            <Label x:Name="lbl_Escola" FontSize="Body"/>
+                        </Frame>
+
+                        <Label Grid.Row="2" FontSize="Body" Text="CNPJ"/>
+                        <Frame Grid.Row="3" Grid.ColumnSpan="2">
+                            <Label x:Name="lbl_CNPJ" FontSize="Body" />
+                        </Frame>
+
+                        <Label Grid.Row="4" FontSize="Body" Text="Endereço"/>
+                        <Frame Grid.Row="5" Grid.ColumnSpan="2">
+                            <Label x:Name="lbl_Endereco" FontSize="Body" />
+                        </Frame>
+
+                        <Label Grid.Row="6" FontSize="Body" Text="Fone"/>
+                        <Frame Grid.Row="7" Grid.ColumnSpan="2">
+                            <Label x:Name="lbl_Fone" FontSize="Body" />
+                        </Frame>
+
+                        <Label Grid.Row="8" FontSize="Body" Text="EMail"/>
+                        <Frame Grid.Row="9" Grid.ColumnSpan="2">
+                            <Label x:Name="lbl_Email" FontSize="Body" />
+                        </Frame>
+
+                        <Label Grid.Row="10" FontSize="Body" Text="Diretor(a)"/>
+                        <Frame Grid.Row="11" Grid.ColumnSpan="2">
+                            <Label x:Name="lbl_Diretor" FontSize="Body" />
+                        </Frame>
+
+                        <Label Grid.Row="12" FontSize="Body" Text="Coordenador(a)"/>
+                        <Frame Grid.Row="13" Grid.ColumnSpan="2">
+                            <Label x:Name="lbl_Coordenador" FontSize="Body" />
+                        </Frame>
+
+                        <!--<Label Grid.Row="8" Grid.ColumnSpan="2" x:Name="lbl_status" HorizontalTextAlignment="Center"/>-->
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+            
+            <ActivityIndicator 
+                x:Name="AIndicator" 
+                IsRunning="True"
+                AbsoluteLayout.LayoutBounds="0.5,0.5" 
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                />
+        </AbsoluteLayout>
+    </StackLayout>
+</ContentPage>

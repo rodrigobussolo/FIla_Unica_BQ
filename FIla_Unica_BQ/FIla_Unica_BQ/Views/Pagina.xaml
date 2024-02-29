@@ -1,22 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              x:Class="Fila_Unica_BQ.Views.Pagina"
              x:Name="Pagina_Conteudo">
     <ContentPage.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/Styles/TemaEscuro.xaml"/>
-				<ResourceDictionary Source="/Styles/Strings.xaml"/>
-			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/TemaEscuro.xaml"/>
+                <ResourceDictionary Source="/Styles/Strings.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </ContentPage.Resources>
 
     <StackLayout IsTabStop="True">
         <StackLayout BackgroundColor="#FF6830" Padding="20,10">
-            <Label x:Name="lbl_Titulo" TextColor="White" FontSize="Large" Margin="0,0,0,-8"/>
-            <Label x:Name="lbl_SubTitulo" TextColor="White" FontSize="Medium"/>
+            <Label x:Name="lbl_Titulo" TextColor="White" FontSize="Title" Margin="0,0,0,-8"/>
+            <Label x:Name="lbl_SubTitulo" TextColor="White" FontSize="Subtitle"/>
+        </StackLayout>
+
+        <StackLayout>
+            <Label x:Name="lbl_DataAtualizaco" Padding="15,0" HorizontalOptions="EndAndExpand"/>
         </StackLayout>
 
         <AbsoluteLayout x:Name="Layout_Lista">
@@ -26,7 +29,6 @@
                 AbsoluteLayout.LayoutBounds="0.5,0.5" 
                 AbsoluteLayout.LayoutFlags="PositionProportional"
                 />
-
             <ListView 
                 x:Name="listaEscola"
                 SelectionMode="None"
@@ -34,12 +36,14 @@
                 HasUnevenRows="True"
                 AbsoluteLayout.LayoutBounds="0,0,1,1" 
                 AbsoluteLayout.LayoutFlags="All"
+                ItemSelected="Handle_ItemSelected" 
+                ItemTapped="Handle_ItemTapped" IsPullToRefreshEnabled="True" RefreshCommand="{Binding Listar}"
                 >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="15,5,15,10">
-                                <Label Text="{Binding EscolaNome}" TextColor="{Binding colorPrimaryDark}" FontSize="Title" Margin="0,0,0,-5"/>
+                                <Label x:Name="lbl_Nome" Text="{Binding EscolaNome}" TextColor="{Binding colorPrimaryDark}" FontSize="Title" Margin="0,0,0,-5"/>
                                 <Label Text="{Binding Opcoes}" TextColor="Gray" />
                             </StackLayout>
                         </ViewCell>
@@ -51,5 +55,55 @@
         <ScrollView x:Name="scr_Texto">
             <Label x:Name="lbl_Texto" Padding="20" FontSize="Medium"/>
         </ScrollView>
+
+        <StackLayout Orientation="Vertical" Margin="20" VerticalOptions="Start">
+            <Button
+                Style="{StaticResource StyleButton}"
+                BackgroundColor="#2c3e50"
+                TextColor="White"
+                FontSize="15"
+                WidthRequest="20"
+                Margin="0,0,0,20"
+                VerticalOptions="EndAndExpand"
+                Text="Unidades Escolares"
+                Clicked="Click_UEscolar"
+                x:Name="btn_UE"
+                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                />
+        </StackLayout>
+
+        <AbsoluteLayout x:Name="Layout_Doador">
+            <StackLayout >
+
+                <Grid Padding="20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" Text="Chave PIX:" />
+                    <Frame  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"> 
+                        <Label x:Name="lbl_Pix" FontSize="20" />
+                    </Frame>
+
+                    <Button
+                            Style="{StaticResource StyleButton}"
+                            BackgroundColor="#2c3e50"
+                            TextColor="White"
+                            FontSize="15"
+                            WidthRequest="20"
+                            Margin="0,0,0,20"
+                            VerticalOptions="EndAndExpand"
+                            Text="Copiar"
+                            Clicked="Click_Copiar"
+                            x:Name="Copiar"
+                            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                            />
+                </Grid>
+
+                <Label x:Name="lbl_Msg" Padding="15,0" HorizontalOptions="Start" FontSize="Medium" Text="Deus abençoe!"/>
+            </StackLayout>
+        </AbsoluteLayout>
+
     </StackLayout>
 </ContentPage>

@@ -138,6 +138,7 @@ namespace Fila_Unica_BQ.Views
                         foreach (var item in Data)
                         {
                             DataAtualizacao = item.Ultima_atualizacao;
+                            lbl_DataAtualizaco.Text = "Última atualização da lista geral em:" + DataAtualizacao.ToString("dd/MM/yyyy");
                         }
                     }
 
@@ -153,6 +154,19 @@ namespace Fila_Unica_BQ.Views
             catch { Info_Status("Sem comunicação com a base de dados!"); }
 
             if (contador_lista > 0) { Info_Status("Total de candidatos cadastrados: " + contador_lista.ToString()); }
+        }
+
+        public async void Atualiza_Lista()
+        {
+            await Busca_htmlAsync();
+        }
+
+        async void OnItemAtualiza_Lista(object sender, EventArgs e)
+        {
+            Limpa_Textos();
+            await fbService.DeletaTudo();
+            await Busca_htmlAsync();
+            await ListaCandidatos();
         }
 
         private async Task Busca_htmlAsync()
@@ -190,6 +204,9 @@ namespace Fila_Unica_BQ.Views
                     Texto = Texto.Replace("        ", "");
                     Texto = Texto.Replace("  ", "");
                     Texto = Texto.Replace("     ", "");
+                    Texto = Texto.Replace(" 1&ordf;", "");
+                    Texto = Texto.Replace(" 2&ordf;", "");
+                    Texto = Texto.Replace(" 3&ordf;", "");
                     Texto = Texto.Replace("1S ", "");
                     Texto = Texto.Replace("2S ", "");
                     Texto = Texto.Replace("3S ", "");
@@ -326,13 +343,16 @@ namespace Fila_Unica_BQ.Views
 
                     foreach (var word in words)
                     {
-                        //if (item == 4 && word.ToString().Trim() == opcao) >>> análise considerando a mesma ordem da opção
-                        if (word.ToString().Trim() == opcao) // análise geral - considera todos os candidatos com a mesma opção independente da ordem das opções
+                        if (word.ToString().Trim() != "14980")
                         {
-                            contador += 1;
-                        }
+                            //if (item == 4 && word.ToString().Trim() == opcao) >>> análise considerando a mesma ordem da opção
+                            if (word.ToString().Trim() == opcao) // análise geral - considera todos os candidatos com a mesma opção independente da ordem das opções
+                            {
+                                contador += 1;
+                            }
 
-                        item += 1;
+                            item += 1;
+                        }
                     }
                 }
             }

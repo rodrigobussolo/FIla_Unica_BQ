@@ -20,14 +20,18 @@
 
     <StackLayout>
         <StackLayout BackgroundColor="#FF6830" Padding="20,10">
-            <Label x:Name="lbl_Pagina" TextColor="White" FontSize="Large" Margin="0,0,0,-8"/>
-            <Label x:Name="lbl_SubTitulo" TextColor="White" FontSize="Medium"/>
+            <Label x:Name="lbl_Pagina" TextColor="White" FontSize="Title" Margin="0,0,0,-8"/>
+            <Label x:Name="lbl_SubTitulo" TextColor="White" FontSize="Subtitle"/>
+        </StackLayout>
+
+        <StackLayout>
+            <Label x:Name="lbl_DataAtualizaco" Padding="15,0" HorizontalOptions="EndAndExpand"/>
         </StackLayout>
 
         <AbsoluteLayout>
             <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout >
-                    <StackLayout Padding="20,10">
+                    <StackLayout Padding="20,0,30,10">
                         <Label TextColor="#2c3e50" FontSize="Medium" Text="Informe o numero do Protocolo"/>
 
                         <controls:StandardEntry

@@ -5,6 +5,14 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 
+
+
+using Android.Content;
+
+using Android.Views;
+using Android.Widget;
+using Android;
+
 namespace Fila_Unica_BQ.Droid
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]

@@ -1,5 +1,6 @@
 ﻿using Fila_Unica_BQ.Resources;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Fila_Unica_BQ.Models
 {
@@ -9,8 +10,11 @@ namespace Fila_Unica_BQ.Models
         public static string SubTitulo { get; set; }
         public static string Texto { get; set; }
         public static int Origem { get; set; }
+        public static int CodigoEscola { get; set; }
 
         //public static readonly List<string> list = new List<string>();
-        //List<string> listaString = list;
+        //List<string> listaEscolas = list;
+
+        //public string DisplayName { get; set; }
     }
 }

@@ -119,12 +119,12 @@
                   x:Name="mnu_MainShell"
                   ContentTemplate="{DataTemplate views:Home}" />
 
-    <ShellContent 
+    <!--<ShellContent 
                   Style="{StaticResource HomeShell}"
                   Title="Teste"
                   Icon="home.png"
                   x:Name="mnu_Home"
-                  ContentTemplate="{DataTemplate views:Pagina}" />
+                  ContentTemplate="{DataTemplate views:Pagina}" />-->
     
     <MenuItem Text="Sobre o Aplicativo"
               IconImageSource="info.png"
@@ -138,6 +138,10 @@
               IconImageSource="escola.png"
               Clicked="Click_UEscolar" IsDestructive="True" />
 
+    <MenuItem Text="Seja um Doador"
+          IconImageSource="doar.png"
+          Clicked="Click_Doador" IsDestructive="True" />
+    
     <MenuItem Text="Help"
               IconImageSource="help.png"
               Command="{Binding HelpCommand}"

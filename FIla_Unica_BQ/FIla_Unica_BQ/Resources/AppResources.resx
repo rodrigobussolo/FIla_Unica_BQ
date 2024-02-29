@@ -135,18 +135,27 @@
   <data name="Email_Contato" xml:space="preserve">
     <value>rodrigobussolo@gmail.com</value>
   </data>
-  <data name="Sobre" xml:space="preserve">
-    <value>O aplicativo Fila Única Brusque foi desenvolvido para auxiliar na consulta e detalhamento da posição em que um candidato a vagas para as creches do município de Brusque - SC, se encontram.
-	
-Atualmente existe um site do município onde os pais podem verificar o posicionamento geral de seu filho na fila de espera, porém, este posicionamento geral não é suficiente, considerando que:
+  <data name="Incentivo" xml:space="preserve">
+    <value>Este é um projeto independente, sem qualquer ligação com a prefeitura do município, ou governo. Foi desenvolvido por um pai que viu a necessidade de ter mais facilidade no monitoramento das vagas para as creches, em que estávamos inscritos.
 
-• Cada candidato pode se cadastrar para vagas em até 3 creches,
+Se este aplicativo lhe foi útil, considere fazer uma doação. Nos ajude a manter e evoluir este, e outros projetos.</value>
+  </data>
+  <data name="Sobre" xml:space="preserve">
+    <value>O aplicativo Fila Única Brusque foi desenvolvido para auxiliar na consulta e detalhamento da posição na fila de espera em que um candidato se encontra, para ocupar uma vaga na creche desejada, no município de Brusque - SC.
+
+Atualmente, existe um site desenvolvido pela prefeitura do município, onde os pais podem verificar o posicionamento geral de seu filho na fila de espera, porém, este posicionamento geral não é suficiente, considerando que:
+
+• Cada candidato pode se cadastrar para vagas em até 3 creches;
 • Cada uma destas creches tem certa quantidade de candidatos aguardando vagas.
-		
-No aplicativo Fila Única Brusque, os pais dos candidato podem, através de uma consulta simples informando o número do protocolo do candidato, verificar em que posição seu filho se encontra na fila de cada uma das creches para qual está aguardando uma vaga.
-        
+
+
+No aplicativo Fila Única Brusque, os pais podem, através de uma consulta simples informando o número do protocolo do candidato, verificar em que posição seu filho se encontra na fila de cada uma das creches para qual está aguardando uma vaga.
+
+
 Observações:
+
 O aplicativo Fila Única Brusque é uma produção independente. Não possui vinculo nem responsabilidade alguma com a prefeitura do município de Brusque-SC.
+
 Nenhuma informação pessoal do candidato é fornecida através deste aplicativo.</value>
   </data>
 </root>

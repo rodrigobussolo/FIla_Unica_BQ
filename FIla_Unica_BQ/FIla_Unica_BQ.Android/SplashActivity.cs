@@ -33,7 +33,7 @@ namespace FIla_Unica_BQ.Droid
         // Simulates background work that happens behind the splash screen
         async void SimulateStartup()
         {
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
     }

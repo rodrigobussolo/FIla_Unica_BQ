@@ -103,12 +103,22 @@ namespace Fila_Unica_BQ.Resources {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a O aplicativo Fila Única Brusque foi desenvolvido para auxiliar na consulta e detalhamento da posição em que um candidato a vagas para as creches do município de Brusque - SC, se encontram.
-        ///	
-        ///Atualmente existe um site do município onde os pais podem verificar o posicionamento geral de seu filho na fila de espera, porém, este posicionamento geral não é suficiente, considerando que:
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Este é um projeto independente, sem qualquer ligação com a prefeitura do município, ou governo. Foi desenvolvido por um pai que viu a necessidade de ter mais facilidade no monitoramento das vagas para as creches, em que estávamos inscritos.
         ///
-        ///• Cada candidato pode se cadastrar para vagas em até 3 creches,
-        ///• Cada uma destas creches tem certa quantidade de candidato [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///Se este aplicativo lhe foi útil, considere fazer uma doação. Nos ajude a manter e evoluir este, e outros projetos..
+        /// </summary>
+        internal static string Incentivo {
+            get {
+                return ResourceManager.GetString("Incentivo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O aplicativo Fila Única Brusque foi desenvolvido para auxiliar na consulta e detalhamento da posição na fila de espera em que um candidato se encontra, para ocupar uma vaga na creche desejada, no município de Brusque - SC.
+        ///
+        ///Atualmente, existe um site desenvolvido pela prefeitura do município, onde os pais podem verificar o posicionamento geral de seu filho na fila de espera, porém, este posicionamento geral não é suficiente, considerando que:
+        ///
+        ///• Cada candidato pode se cadastrar para vagas em até 3 crech [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         internal static string Sobre {
             get {
