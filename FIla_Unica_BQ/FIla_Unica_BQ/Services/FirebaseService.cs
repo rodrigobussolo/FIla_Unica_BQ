@@ -12,9 +12,9 @@ namespace Fila_Unica_BQ.Services
     {
         readonly FirebaseClient firebase = new FirebaseClient("https://fila-unica-brusque-default-rtdb.firebaseio.com/");
 
-        readonly string codURL = Models.OrigemInscricao.Origem;
+        readonly string codURL = OrigemInscricao.Origem;
 
-        public async Task AddCandidato(int posicao, int protocoloid, string data_dora, string opcao1, string opcao2, string opcao3)
+        public async Task AddCandidato(int posicao, int protocoloid, string data_dora, string opcao1, string opcao2, string opcao3, string chamadas)
         {
             await firebase.Child("Candidatos" + codURL).PostAsync(new Candidato()
             {
@@ -23,7 +23,8 @@ namespace Fila_Unica_BQ.Services
                 Data_Hora = data_dora,
                 Opcao1 = opcao1,
                 Opcao2 = opcao2,
-                Opcao3 = opcao3
+                Opcao3 = opcao3,
+                Chamadas = chamadas
             });
         }
 
@@ -36,7 +37,8 @@ namespace Fila_Unica_BQ.Services
                 Data_Hora = item.Object.Data_Hora,
                 Opcao1 = item.Object.Opcao1,
                 Opcao2 = item.Object.Opcao2,
-                Opcao3 = item.Object.Opcao3
+                Opcao3 = item.Object.Opcao3,
+                Chamadas = item.Object.Chamadas
             }).ToList();
         }
 

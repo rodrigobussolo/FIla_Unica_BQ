@@ -1,4 +1,5 @@
 ﻿using Android.Content;
+using Android.Icu.Util;
 using Android.Widget;
 using Fila_Unica_BQ.Models;
 using Fila_Unica_BQ.Resources;
@@ -13,6 +14,8 @@ using System.Threading.Tasks;
 using Xamarin.Android.Net;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Android.Provider.UserDictionary;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Fila_Unica_BQ.Views
 {
@@ -24,6 +27,9 @@ namespace Fila_Unica_BQ.Views
         private static readonly List<string> list = new List<string>();
         readonly List<string> listaString = list;
 
+        private static readonly List<string> listB = new List<string>();
+        readonly List<string> listaStringB = listB;
+
         readonly FirebaseService fbService = new FirebaseService();
         readonly FirebaseClient firebase = new FirebaseClient("https://fila-unica-brusque-default-rtdb.firebaseio.com/");
 
@@ -33,6 +39,7 @@ namespace Fila_Unica_BQ.Views
         private string escolha_1 = "";
         private string escolha_2 = "";
         private string escolha_3 = "";
+        private string chamadas = "";
         private int contador = 0;
         private int contador_lista = 0;
 
@@ -46,6 +53,7 @@ namespace Fila_Unica_BQ.Views
             Pagina_Conteudo.Title = AppResources.AppName;
 
             txt_Protocolo.Text = "";
+            lbl_Chamadas.IsVisible = false;
 
             switch (Origem)
             {
@@ -81,19 +89,20 @@ namespace Fila_Unica_BQ.Views
             try
             {
                 var GetItems = (await firebase.Child("Candidatos" + codURL)
-                   .OnceAsync<Models.Candidato>()).Select(item => new Models.Candidato
+                   .OnceAsync<Models.Candidato>()).Select(item => new Candidato
                    {
                        Posicao = item.Object.Posicao,
                        ProtocoloId = item.Object.ProtocoloId,
                        Data_Hora = item.Object.Data_Hora,
                        Opcao1 = item.Object.Opcao1,
                        Opcao2 = item.Object.Opcao2,
-                       Opcao3 = item.Object.Opcao3
+                       Opcao3 = item.Object.Opcao3,
+                       Chamadas = item.Object.Chamadas
                    });
                 contador_lista = 0;
                 foreach (var item in GetItems)
                 {
-                    string linha = item.Posicao.ToString() + ";" + item.ProtocoloId.ToString() + ";" + item.Data_Hora + ";" + item.Opcao1 + ";" + item.Opcao2 + ";" + item.Opcao3;
+                    string linha = item.Posicao.ToString() + ";" + item.ProtocoloId.ToString() + ";" + item.Data_Hora + ";" + item.Opcao1 + ";" + item.Opcao2 + ";" + item.Opcao3 + ";" + item.Chamadas;
                     listaString.Add(linha);
                     contador_lista += 1;
                 }
@@ -156,19 +165,6 @@ namespace Fila_Unica_BQ.Views
             if (contador_lista > 0) { Info_Status("Total de candidatos cadastrados: " + contador_lista.ToString()); }
         }
 
-        public async void Atualiza_Lista()
-        {
-            await Busca_htmlAsync();
-        }
-
-        async void OnItemAtualiza_Lista(object sender, EventArgs e)
-        {
-            Limpa_Textos();
-            await fbService.DeletaTudo();
-            await Busca_htmlAsync();
-            await ListaCandidatos();
-        }
-
         private async Task Busca_htmlAsync()
         {
             Info_Status("Atualizando lista de candidatos... Aguarde!");
@@ -215,8 +211,48 @@ namespace Fila_Unica_BQ.Views
                     listaString.Add(Texto);
                 }
 
+                listaStringB.Clear();
+                doc.LoadHtml(pageHtml);
+
+                Texto = "";
+                int n = 0;
+                foreach (var dnode in doc.DocumentNode.SelectNodes("//table/tbody/tr/td"))
+                {
+                    Texto += dnode.InnerText;
+
+                    Texto = Texto.Replace("Ordem:", "");
+                    Texto = Texto.Replace("op&ccedil;ao:", ";");
+                    Texto = Texto.Replace("Inscri&ccedil;ao: ", ";");
+                    Texto = Texto.Replace("&nbsp;", "");
+                    Texto = Texto.Replace("[X]", "");
+                    Texto = Texto.Replace(" Protocolo: ", ";");
+                    Texto = Texto.Replace("	 ", " ");
+                    Texto = Texto.Replace("	", " ");
+                    Texto = Texto.Replace("        ", "");
+                    Texto = Texto.Replace("  ", "");
+                    Texto = Texto.Replace("     ", "");
+                    Texto = Texto.Replace(" 1&ordf;", "");
+                    Texto = Texto.Replace(" 2&ordf;", "");
+                    Texto = Texto.Replace(" 3&ordf;", "");
+                    Texto = Texto.Replace("1S ", "");
+                    Texto = Texto.Replace("2S ", "");
+                    Texto = Texto.Replace("3S ", "");
+                    Texto = Texto.Replace("\r\n", "");
+
+                    Texto += ";";
+                    n++;
+
+                    if (n == 6)
+                    {
+                        listaStringB.Add(Texto.Trim());
+                        n = 0;
+                        Texto = "";
+                    }
+                }
+
                 if (listaString.Count > 0)
                 {
+                    
                     foreach (string item in listaString)
                     {
                         GravaDados(item);
@@ -264,6 +300,20 @@ namespace Fila_Unica_BQ.Views
             try
             {
                 var candidato = await fbService.GetCandidato(CandidatoId);
+
+                if (candidato != null && candidato.Chamadas == null)
+                {
+                    /*
+                     * Testa existência do campo Chamadas. Este campo está presente a partir da versão 17.
+                     * Se acaso estiver nulo (versão anteriores não geram esta informação), recria a lista.
+                     */
+                    await fbService.DeletaTudo();
+                    await Busca_htmlAsync();
+                    await ListaCandidatos();
+
+                    candidato = await fbService.GetCandidato(CandidatoId);
+                }
+
                 if (candidato != null)
                 {
                     lbl_Protocolo.Text = candidato.ProtocoloId.ToString();
@@ -272,6 +322,23 @@ namespace Fila_Unica_BQ.Views
                     lbl_Opc1.Text = candidato.Opcao1.Trim();
                     lbl_Opc2.Text = candidato.Opcao2.Trim();
                     lbl_Opc3.Text = candidato.Opcao3.Trim();
+
+                    string Texto = "";
+                    if (candidato.Chamadas == null)
+                        Texto = "";
+                    else { Texto = candidato.Chamadas.Trim(); }
+
+                    if (Texto != "")
+                    {
+                        if (Texto.Length <= 3)
+                        {
+                            lbl_Chamadas.Text = "ATENÇÃO: Identificadas " + Texto + " tentativas de contato para este protocolo!";
+                        }
+                        else { lbl_Chamadas.Text = "ATENÇÃO: Identificadas tentativas de contato para este protocolo!"; }
+
+                        lbl_Chamadas.IsVisible = true;
+                    }
+                    else { lbl_Chamadas.Text = ""; lbl_Chamadas.IsVisible = false; }
 
                     posicao = candidato.Posicao;
 
@@ -324,7 +391,22 @@ namespace Fila_Unica_BQ.Views
 
                 item += 1;
             }
-            await fbService.AddCandidato(posicao, protocolo, datahora, escolha_1, escolha_2, escolha_3);
+            
+            chamadas = "";
+            int nProtocolo;
+
+            foreach (string itemB in listaStringB)
+            {
+                words = itemB.Split(';');
+                nProtocolo  = int.Parse(words[2]);  
+                if (nProtocolo == protocolo)
+                {
+                    chamadas = words[5].Trim();
+                    break;
+                };
+            }
+
+            await fbService.AddCandidato(posicao, protocolo, datahora, escolha_1, escolha_2, escolha_3, chamadas);
         }
 
         private void Analisa_Posicao(string opcao)

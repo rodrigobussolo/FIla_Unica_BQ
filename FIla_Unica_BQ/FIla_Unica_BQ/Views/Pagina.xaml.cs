@@ -52,11 +52,6 @@ namespace Fila_Unica_BQ.Views
 
                     lbl_Texto.Text = Dados_gerais.Texto;
 
-                    if (valor == 4)
-                    {
-
-                    }
-
                     AIndicator.IsRunning = false;
 
                     Layout_Doador.IsVisible = false;
@@ -67,7 +62,9 @@ namespace Fila_Unica_BQ.Views
 
                     scr_Texto.IsVisible = false;
                     lbl_Texto.IsVisible = false;
-                    btn_UE.IsVisible = false;
+                    scr_Extra.IsVisible = false;
+
+                    AIndicator.IsRunning = false;
 
                     //atualizar = false;
                     Valida_Data();
@@ -85,7 +82,7 @@ namespace Fila_Unica_BQ.Views
                     listaEscola.IsVisible = false;
                     lbl_DataAtualizaco.IsVisible = false;
                     Layout_Doador.IsVisible = true;
-                    btn_UE.IsVisible = false;
+                    scr_Extra.IsVisible = false;
 
                     lbl_Texto.Text = Dados_gerais.Texto;
                     AIndicator.IsRunning = false;
@@ -96,8 +93,7 @@ namespace Fila_Unica_BQ.Views
                     Layout_Lista.IsVisible = false;
                     listaEscola.IsVisible = false;
                     lbl_DataAtualizaco.IsVisible = false;
-                    Layout_Doador.IsVisible = true;
-                    btn_UE.IsVisible = true;
+                    scr_Extra.IsVisible = true;
 
                     lbl_Texto.Text = Dados_gerais.Texto;
                     AIndicator.IsRunning = false;

@@ -19,9 +19,9 @@ Global
 		Release|iPhoneSimulator = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8E1BE98F-6212-42F6-829C-478F9FA3E616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E1BE98F-6212-42F6-829C-478F9FA3E616}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E1BE98F-6212-42F6-829C-478F9FA3E616}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8E1BE98F-6212-42F6-829C-478F9FA3E616}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{8E1BE98F-6212-42F6-829C-478F9FA3E616}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{8E1BE98F-6212-42F6-829C-478F9FA3E616}.Debug|Any CPU.Deploy.0 = Release|Any CPU
 		{8E1BE98F-6212-42F6-829C-478F9FA3E616}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{8E1BE98F-6212-42F6-829C-478F9FA3E616}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{8E1BE98F-6212-42F6-829C-478F9FA3E616}.Debug|iPhone.Deploy.0 = Debug|Any CPU

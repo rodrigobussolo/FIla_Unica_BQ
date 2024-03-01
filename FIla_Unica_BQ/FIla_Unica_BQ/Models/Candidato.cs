@@ -8,5 +8,6 @@
         public string Opcao1 { get; set; }
         public string Opcao2 { get; set; }
         public string Opcao3 { get; set; }
+        public string Chamadas { get; set; }
     }
 }

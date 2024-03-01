@@ -56,7 +56,7 @@
             <Label x:Name="lbl_Texto" Padding="20" FontSize="Medium"/>
         </ScrollView>
 
-        <StackLayout Orientation="Vertical" Margin="20" VerticalOptions="Start">
+        <StackLayout x:Name="scr_Extra" Orientation="Vertical" Margin="20" VerticalOptions="Start">
             <Button
                 Style="{StaticResource StyleButton}"
                 BackgroundColor="#2c3e50"

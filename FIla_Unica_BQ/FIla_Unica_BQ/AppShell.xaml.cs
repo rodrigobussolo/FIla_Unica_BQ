@@ -43,7 +43,7 @@ namespace Fila_Unica_BQ
             Models.Dados_gerais.Titulo = "SOBRE";
             Models.Dados_gerais.SubTitulo = "Informativo";
             Models.Dados_gerais.Texto = AppResources.Sobre;
-            Models.Dados_gerais.Origem = 4;
+            Models.Dados_gerais.Origem = 0;
             Current.FlyoutIsPresented = false;
             await Navigation.PushAsync(new Pagina());
         }

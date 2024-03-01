@@ -103,9 +103,9 @@ namespace Fila_Unica_BQ.Resources {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Este é um projeto independente, sem qualquer ligação com a prefeitura do município, ou governo. Foi desenvolvido por um pai que viu a necessidade de ter mais facilidade no monitoramento das vagas para as creches, em que estávamos inscritos.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Este é um projeto independente, sem qualquer ligação com a prefeitura do município, governo do estado ou partido político. Foi desenvolvido a partir de uma necessidade pessoal visando mais facilidade no monitoramento das vagas para as creches.
         ///
-        ///Se este aplicativo lhe foi útil, considere fazer uma doação. Nos ajude a manter e evoluir este, e outros projetos..
+        ///Se este aplicativo lhe foi útil, considere fazer uma doação. Me ajude a manter e evoluir este, e outros projetos..
         /// </summary>
         internal static string Incentivo {
             get {
