@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+
 namespace Fila_Unica_BQ.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]

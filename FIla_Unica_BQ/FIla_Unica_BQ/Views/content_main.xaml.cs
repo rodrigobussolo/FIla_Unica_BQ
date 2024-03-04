@@ -181,6 +181,7 @@ namespace Fila_Unica_BQ.Views
                 var doc = new HtmlDocument();
                 doc.LoadHtml(pageHtml);
 
+
                 string Texto = "";
                 var node = doc.DocumentNode.Descendants().Where(d => d.Attributes.Contains("class") && d.Attributes["class"].Value.Contains("pop"));
 
@@ -213,6 +214,7 @@ namespace Fila_Unica_BQ.Views
 
                 listaStringB.Clear();
                 doc.LoadHtml(pageHtml);
+
 
                 Texto = "";
                 int n = 0;
