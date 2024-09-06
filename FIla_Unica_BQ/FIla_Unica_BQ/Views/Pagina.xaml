@@ -73,7 +73,7 @@
                 />
         </StackLayout>
 
-        <AbsoluteLayout x:Name="Layout_Doador">
+        <AbsoluteLayout x:Name="Layout_Contato">
             <StackLayout >
 
                 <Grid Padding="20,0">
@@ -82,9 +82,9 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" Text="Chave PIX:" />
+                    <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" Text="E-Mail para contato:" />
                     <Frame  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"> 
-                        <Label x:Name="lbl_Pix" FontSize="20" />
+                        <Label x:Name="lbl_email" FontSize="20" />
                     </Frame>
 
                     <Button

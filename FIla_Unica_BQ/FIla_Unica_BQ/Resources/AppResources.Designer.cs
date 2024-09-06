@@ -105,7 +105,7 @@ namespace Fila_Unica_BQ.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Este é um projeto independente, sem qualquer ligação com a prefeitura do município, governo do estado ou partido político. Foi desenvolvido a partir de uma necessidade pessoal visando mais facilidade no monitoramento das vagas para as creches.
         ///
-        ///Se este aplicativo lhe foi útil, considere fazer uma doação. Me ajude a manter e evoluir este, e outros projetos..
+        ///Para dúvidas ou sugestões entre em contato.
         /// </summary>
         internal static string Incentivo {
             get {
@@ -116,9 +116,9 @@ namespace Fila_Unica_BQ.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O aplicativo Fila Única Brusque foi desenvolvido para auxiliar na consulta e detalhamento da posição na fila de espera em que um candidato se encontra, para ocupar uma vaga na creche desejada, no município de Brusque - SC.
         ///
-        ///Atualmente, existe um site desenvolvido pela prefeitura do município, onde os pais podem verificar o posicionamento geral de seu filho na fila de espera, porém, este posicionamento geral não é suficiente, considerando que:
+        ///Atualmente, existe um site desenvolvido pela prefeitura do município, onde os pais podem verificar o posicionamento geral de seu filho na fila de espera. O aplicativo facilita a consulta e visualização das informações contidas no site.
         ///
-        ///• Cada candidato pode se cadastrar para vagas em até 3 crech [o restante da cadeia de caracteres foi truncado]&quot;;.
+        ///No aplicativo Fila Única Brusque, os pais podem [o restante da cadeia de caracteres foi truncado]&quot;;.
         /// </summary>
         internal static string Sobre {
             get {

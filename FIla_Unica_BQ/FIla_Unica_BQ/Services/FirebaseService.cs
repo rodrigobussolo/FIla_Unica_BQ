@@ -14,23 +14,24 @@ namespace Fila_Unica_BQ.Services
 
         readonly string codURL = OrigemInscricao.Origem;
 
-        public async Task AddCandidato(int posicao, int protocoloid, string data_dora, string opcao1, string opcao2, string opcao3, string chamadas)
+        public async Task AddCandidato(int posicao, int protocoloid, string data_hora, string opcao1, string opcao2, string opcao3, string opcao4, string chamadas)
         {
-            await firebase.Child("Candidatos" + codURL).PostAsync(new Candidato()
+            await firebase.Child("Candidato" + codURL).PostAsync(new Candidato()
             {
                 Posicao = posicao,
                 ProtocoloId = protocoloid,
-                Data_Hora = data_dora,
+                Data_Hora = data_hora,
                 Opcao1 = opcao1,
                 Opcao2 = opcao2,
                 Opcao3 = opcao3,
+                Opcao4 = opcao4,
                 Chamadas = chamadas
             });
         }
 
         public async Task<List<Candidato>> GetCandidatos()
         {
-            return (await firebase.Child("Candidatos" + codURL).OnceAsync<Candidato>()).Select(item => new Candidato
+            return (await firebase.Child("Candidato" + codURL).OnceAsync<Candidato>()).Select(item => new Candidato
             {
                 Posicao = item.Object.Posicao,
                 ProtocoloId = item.Object.ProtocoloId,
@@ -38,6 +39,7 @@ namespace Fila_Unica_BQ.Services
                 Opcao1 = item.Object.Opcao1,
                 Opcao2 = item.Object.Opcao2,
                 Opcao3 = item.Object.Opcao3,
+                Opcao4 = item.Object.Opcao4,
                 Chamadas = item.Object.Chamadas
             }).ToList();
         }
@@ -45,7 +47,7 @@ namespace Fila_Unica_BQ.Services
         public async Task<Candidato> GetCandidato(int ProtocoloId)
         {
             var candidatos = await GetCandidatos();
-            await firebase.Child("Candidatos" + codURL).OnceAsync<Candidato>();
+            await firebase.Child("Candidato" + codURL).OnceAsync<Candidato>();
             return candidatos.Where(a => a.ProtocoloId == ProtocoloId).FirstOrDefault();
         }
 
@@ -80,6 +82,13 @@ namespace Fila_Unica_BQ.Services
             var escolas = await GetEscolaCandidatos();
             await firebase.Child("EscolaCandidatos").OnceAsync<EscolaCandidato>();
             return escolas.Where(a => a.EscolaCod == codigo).FirstOrDefault();
+        }
+
+        public async Task<EscolaCandidato> GetEscolaNome(string nome)
+        {
+            var escolas = await GetEscolaCandidatos();
+            await firebase.Child("EscolaCandidatos").OnceAsync<EscolaCandidato>();
+            return escolas.Where(a => a.EscolaNome == nome).FirstOrDefault();
         }
 
         public async Task AddInfoEscola(int codigo,
@@ -173,16 +182,21 @@ namespace Fila_Unica_BQ.Services
             return escolas.Where(a => a.EscolaCod == codescola).FirstOrDefault();
         }
 
-
         public async Task Atualiza_Data()
         {
-            await firebase.Child("DataAtualizacao" + codURL).DeleteAsync();
-            await firebase.Child("DataAtualizacao" + codURL).PostAsync(new Atualizacao() { Ultima_atualizacao = DateTime.Now.Date });
+            await firebase.Child("DtaAtualizacao" + codURL).DeleteAsync();
+            await firebase.Child("DtaAtualizacao" + codURL).PostAsync(new Atualizacao() { Ultima_atualizacao = DateTime.Now.Date });
+        }
+
+        public async Task Atualiza_Data_Escolas()
+        {
+            await firebase.Child("DtaAtualizacaoEscolas").DeleteAsync();
+            await firebase.Child("DtaAtualizacaoEscolas").PostAsync(new Atualizacao() { Ultima_atualizacaoEscola = DateTime.Now.Date });
         }
 
         public async Task DeletaTudo()
         {
-            await firebase.Child("Candidatos" + codURL).DeleteAsync();
+            await firebase.Child("Candidato" + codURL).DeleteAsync();
         }
 
         public async Task DeletaEscolas()

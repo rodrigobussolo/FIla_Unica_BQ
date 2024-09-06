@@ -55,7 +55,7 @@ namespace Fila_Unica_BQ.Views
 
                     AIndicator.IsRunning = false;
 
-                    Layout_Doador.IsVisible = false;
+                    Layout_Contato.IsVisible = false;
                     break;
                 case 1: //Página Unidades Escolares
 
@@ -67,27 +67,28 @@ namespace Fila_Unica_BQ.Views
 
                     AIndicator.IsRunning = false;
 
-                    //atualizar = false;
+                    atualizar = true;
                     Valida_Data();
+
                     if (atualizar == true)
                     {
-                        //Atualizar_Escola();
+                        Atualizar_Escola();
                     }
 
-                    Layout_Doador.IsVisible = false;
+                    Layout_Contato.IsVisible = false;
 
                     Listar();
                     break;
-                case 2: //Página doações
+                case 2: //Página contato
                     Layout_Lista.IsVisible = false;
                     listaEscola.IsVisible = false;
                     lbl_DataAtualizaco.IsVisible = false;
-                    Layout_Doador.IsVisible = true;
+                    Layout_Contato.IsVisible = true;
                     scr_Extra.IsVisible = false;
 
                     lbl_Texto.Text = Dados_gerais.Texto;
                     AIndicator.IsRunning = false;
-                    lbl_Pix.Text = "rodrigobussolo@gmail.com";
+                    lbl_email.Text = "rodrigobussolo@gmail.com";
 
                     break;
                 case 3: //Página Documentação para Inscrição
@@ -99,7 +100,7 @@ namespace Fila_Unica_BQ.Views
                     lbl_Texto.Text = Dados_gerais.Texto;
                     AIndicator.IsRunning = false;
 
-                    Layout_Doador.IsVisible = false;
+                    Layout_Contato.IsVisible = false;
 
                     break;
             }
@@ -164,9 +165,9 @@ namespace Fila_Unica_BQ.Views
         {
             CrossClipboard.Current.SetText("rodrigobussolo@gmail.com");
 
-            await DisplayAlert("Atenção", "A chave PIX \""
-                               + lbl_Pix.Text
-                               + "\" foi copiada.", "OK");
+            await DisplayAlert("Atenção", "Endereço de E-Mail \""
+                               + lbl_email.Text
+                               + "\" copiado.", "OK");
         }
 
         private async void Click_UEscolar(object sender, EventArgs e)
@@ -190,17 +191,17 @@ namespace Fila_Unica_BQ.Views
         {
             try
             {
-                var Data = (await firebase.Child("DataAtualizacaoListaEscolas")
-                   .OnceAsync<Models.Atualizacao>()).Select(item => new Models.Atualizacao
+                var Data = (await firebase.Child("DtaAtualizacaoEscolas")
+                   .OnceAsync<Atualizacao>()).Select(item => new Atualizacao
                    {
-                       Ultima_atualizacao = item.Object.Ultima_atualizacao,
+                       Ultima_atualizacaoEscola = item.Object.Ultima_atualizacaoEscola,
                    });
 
                 if (Data != null)
                 {
                     foreach (var item in Data)
                     {
-                        DataAtualizacao = item.Ultima_atualizacao;
+                        DataAtualizacao = item.Ultima_atualizacaoEscola;
                         lbl_DataAtualizaco.Text = "Última atualização em:" + DataAtualizacao.ToString("dd/MM/yyyy");
                     }
                 }
@@ -277,7 +278,7 @@ namespace Fila_Unica_BQ.Views
 
                         linha++;
                     }
-                    await fbService.Atualiza_Data();
+                    await fbService.Atualiza_Data_Escolas();
 
                     await ListaEscolas();
                 }

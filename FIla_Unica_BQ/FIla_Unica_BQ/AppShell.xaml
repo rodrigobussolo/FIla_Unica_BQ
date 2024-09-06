@@ -138,8 +138,8 @@
               IconImageSource="escola.png"
               Clicked="Click_UEscolar" IsDestructive="True" />
 
-    <MenuItem Text="Seja um Doador"
-          IconImageSource="doar.png"
+    <MenuItem Text="Contato"
+          IconImageSource="contato.png"
           Clicked="Click_Doador" IsDestructive="True" />
     
     <MenuItem Text="Help"

@@ -39,6 +39,7 @@ namespace Fila_Unica_BQ.Views
         private string escolha_1 = "";
         private string escolha_2 = "";
         private string escolha_3 = "";
+        private string escolha_4 = "";
         private string chamadas = "";
         private int contador = 0;
         private int contador_lista = 0;
@@ -84,12 +85,13 @@ namespace Fila_Unica_BQ.Views
 
         private async Task ListaCandidatos()
         {
+            listaString.Clear();
             AIndicator.IsRunning = true;
             Info_Status("Analisando lista de candidatos... Aguarde!");
             try
             {
-                var GetItems = (await firebase.Child("Candidatos" + codURL)
-                   .OnceAsync<Models.Candidato>()).Select(item => new Candidato
+                var GetItems = (await firebase.Child("Candidato" + codURL)
+                   .OnceAsync<Candidato>()).Select(item => new Candidato
                    {
                        Posicao = item.Object.Posicao,
                        ProtocoloId = item.Object.ProtocoloId,
@@ -97,17 +99,18 @@ namespace Fila_Unica_BQ.Views
                        Opcao1 = item.Object.Opcao1,
                        Opcao2 = item.Object.Opcao2,
                        Opcao3 = item.Object.Opcao3,
+                       Opcao4 = item.Object.Opcao4,
                        Chamadas = item.Object.Chamadas
                    });
                 contador_lista = 0;
                 foreach (var item in GetItems)
                 {
-                    string linha = item.Posicao.ToString() + ";" + item.ProtocoloId.ToString() + ";" + item.Data_Hora + ";" + item.Opcao1 + ";" + item.Opcao2 + ";" + item.Opcao3 + ";" + item.Chamadas;
+                    string linha = item.Posicao.ToString() + ";" + item.ProtocoloId.ToString() + ";" + item.Data_Hora + ";" + item.Opcao1 + ";" + item.Opcao2 + ";" + item.Opcao3 + ";" + item.Opcao4 + ";" + item.Chamadas;
                     listaString.Add(linha);
                     contador_lista += 1;
                 }
 
-                Info_Status("Total de candidatos cadastrados: " + contador_lista.ToString());
+                Info_Status("Total de candidatos: " + contador_lista.ToString());
             }
             catch { Info_Status("Erro desconhecido ao coletar lista de candidatos!"); }
             AIndicator.IsRunning = false;
@@ -136,8 +139,8 @@ namespace Fila_Unica_BQ.Views
                     DateTime DataAtualizacao = Convert.ToDateTime("01/01/0001");
                     DateTime Data_aux = DateTime.Now.Date;
 
-                    var Data = (await firebase.Child("DataAtualizacao" + codURL)
-                       .OnceAsync<Models.Atualizacao>()).Select(item => new Models.Atualizacao
+                    var Data = (await firebase.Child("DtaAtualizacao" + codURL)
+                       .OnceAsync<Atualizacao>()).Select(item => new Atualizacao
                        {
                            Ultima_atualizacao = item.Object.Ultima_atualizacao,
                        });
@@ -147,7 +150,7 @@ namespace Fila_Unica_BQ.Views
                         foreach (var item in Data)
                         {
                             DataAtualizacao = item.Ultima_atualizacao;
-                            lbl_DataAtualizaco.Text = "Última atualização da lista geral em:" + DataAtualizacao.ToString("dd/MM/yyyy");
+                            lbl_DataAtualizaco.Text = "Última atualização em:" + DataAtualizacao.ToString("dd/MM/yyyy");
                         }
                     }
 
@@ -162,7 +165,7 @@ namespace Fila_Unica_BQ.Views
             }
             catch { Info_Status("Sem comunicação com a base de dados!"); }
 
-            if (contador_lista > 0) { Info_Status("Total de candidatos cadastrados: " + contador_lista.ToString()); }
+            if (contador_lista > 0) { Info_Status("Total de candidatos: " + contador_lista.ToString()); }
         }
 
         private async Task Busca_htmlAsync()
@@ -195,18 +198,20 @@ namespace Fila_Unica_BQ.Views
                     Texto = Texto.Replace("Inscri&ccedil;ao: ", ";");
                     Texto = Texto.Replace("&nbsp;", "");
                     Texto = Texto.Replace("[X]", "");
-                    Texto = Texto.Replace(" Protocolo: ", ";");
+                    Texto = Texto.Replace("Protocolo:", ";");
                     Texto = Texto.Replace("	 ", " ");
                     Texto = Texto.Replace("	", " ");
                     Texto = Texto.Replace("        ", "");
                     Texto = Texto.Replace("  ", "");
                     Texto = Texto.Replace("     ", "");
-                    Texto = Texto.Replace(" 1&ordf;", "");
-                    Texto = Texto.Replace(" 2&ordf;", "");
-                    Texto = Texto.Replace(" 3&ordf;", "");
+                    Texto = Texto.Replace("1&ordf;", "");
+                    Texto = Texto.Replace("2&ordf;", "");
+                    Texto = Texto.Replace("3&ordf;", "");
+                    Texto = Texto.Replace("4&ordf;", "");
                     Texto = Texto.Replace("1S ", "");
                     Texto = Texto.Replace("2S ", "");
                     Texto = Texto.Replace("3S ", "");
+                    Texto = Texto.Replace("4S ", "");
                     Texto = Texto.Replace("\r\n", "");
 
                     listaString.Add(Texto);
@@ -227,18 +232,20 @@ namespace Fila_Unica_BQ.Views
                     Texto = Texto.Replace("Inscri&ccedil;ao: ", ";");
                     Texto = Texto.Replace("&nbsp;", "");
                     Texto = Texto.Replace("[X]", "");
-                    Texto = Texto.Replace(" Protocolo: ", ";");
+                    Texto = Texto.Replace("Protocolo:", ";");
                     Texto = Texto.Replace("	 ", " ");
                     Texto = Texto.Replace("	", " ");
                     Texto = Texto.Replace("        ", "");
                     Texto = Texto.Replace("  ", "");
                     Texto = Texto.Replace("     ", "");
-                    Texto = Texto.Replace(" 1&ordf;", "");
-                    Texto = Texto.Replace(" 2&ordf;", "");
-                    Texto = Texto.Replace(" 3&ordf;", "");
+                    Texto = Texto.Replace("1&ordf;", "");
+                    Texto = Texto.Replace("2&ordf;", "");
+                    Texto = Texto.Replace("3&ordf;", "");
+                    Texto = Texto.Replace("4&ordf;", "");
                     Texto = Texto.Replace("1S ", "");
                     Texto = Texto.Replace("2S ", "");
                     Texto = Texto.Replace("3S ", "");
+                    Texto = Texto.Replace("4S ", "");
                     Texto = Texto.Replace("\r\n", "");
 
                     Texto += ";";
@@ -324,6 +331,7 @@ namespace Fila_Unica_BQ.Views
                     lbl_Opc1.Text = candidato.Opcao1.Trim();
                     lbl_Opc2.Text = candidato.Opcao2.Trim();
                     lbl_Opc3.Text = candidato.Opcao3.Trim();
+                    lbl_Opc4.Text = candidato.Opcao4.Trim();
 
                     string Texto = "";
                     if (candidato.Chamadas == null)
@@ -344,18 +352,41 @@ namespace Fila_Unica_BQ.Views
 
                     posicao = candidato.Posicao;
 
-                    contador = 0;
                     Analisa_Posicao(candidato.Opcao1.Trim());
-                    lbl_Opc1.Text += "\r\n" + contador.ToString() + " candidatos na frente";
+                    lbl_Opc1.Text += "\r\nTotal de Candidatos: " + contador.ToString();
 
-                    contador = 0;
                     Analisa_Posicao(candidato.Opcao2.Trim());
+                    lbl_Opc2.Text += "\r\nTotal de Candidatos: " + contador.ToString();
 
-                    lbl_Opc2.Text += "\r\n" + contador.ToString() + " candidatos na frente";
-
-                    contador = 0;
                     Analisa_Posicao(candidato.Opcao3.Trim());
-                    lbl_Opc3.Text += "\r\n" + contador.ToString() + " candidatos na frente";
+                    lbl_Opc3.Text += "\r\nTotal de Candidatos: " + contador.ToString();
+
+                    Analisa_Posicao(candidato.Opcao4.Trim());
+                    lbl_Opc4.Text += "\r\nTotal de Candidatos: " + contador.ToString();
+
+
+                    // A rotina abaixo busca o total de inscrições para cada opção, na escola
+
+                    /*
+                    var escolas = await fbService.GetEscolaNome(candidato.Opcao1.Trim());
+                    if (escolas != null)
+                    {
+                        lbl_Opc1.Text += "\r\n" + escolas.Opcoes;
+                    }
+
+                    escolas = await fbService.GetEscolaNome(candidato.Opcao2.Trim());
+                    if (escolas != null)
+                    {
+                        lbl_Opc2.Text += "\r\n" + escolas.Opcoes;
+                    }
+
+                    escolas = await fbService.GetEscolaNome(candidato.Opcao3.Trim());
+                    if (escolas != null)
+                    {
+                        lbl_Opc3.Text += "\r\n" + escolas.Opcoes;
+                    }
+                    */
+
                 }
                 else
                 {
@@ -374,6 +405,7 @@ namespace Fila_Unica_BQ.Views
             lbl_Opc1.Text = null;
             lbl_Opc2.Text = null;
             lbl_Opc3.Text = null;
+            lbl_Opc4.Text = null;
         }
 
         private async void GravaDados(string texto)
@@ -384,12 +416,23 @@ namespace Fila_Unica_BQ.Views
 
             foreach (var word in words)
             {
-                if (item == 1) { posicao = Int32.Parse(word); }
-                if (item == 2) { protocolo = Int32.Parse(word); }
+                if (item == 1) { posicao = int.Parse(word); }
+                if (item == 2) { protocolo = int.Parse(word); }
                 if (item == 3) { datahora = word.ToString().Trim(); }
                 if (item == 4) { escolha_1 = word.ToString().Trim(); }
                 if (item == 5) { escolha_2 = word.ToString().Trim(); }
                 if (item == 6) { escolha_3 = word.ToString().Trim(); }
+
+                if (item == 7) {
+                    if (word.ToString().Trim() == "")
+                    {
+                        escolha_4 = "NENHUM";
+                    }
+                    else 
+                    { 
+                        escolha_4 = word.ToString().Trim(); 
+                    }
+                }
 
                 item += 1;
             }
@@ -408,15 +451,38 @@ namespace Fila_Unica_BQ.Views
                 };
             }
 
-            await fbService.AddCandidato(posicao, protocolo, datahora, escolha_1, escolha_2, escolha_3, chamadas);
+            await fbService.AddCandidato(posicao, protocolo, datahora, escolha_1, escolha_2, escolha_3, escolha_4, chamadas);
         }
 
         private void Analisa_Posicao(string opcao)
         {
+            /*
+                A pedido dos responsáveis pelo programa Fila Única, da prefeitura, foi ajustado para não exibir a posição do candidato sobre cada instituição
+            */
             int posicoes = 0;
+            int cont = 0;
             foreach (string itens in listaString)
             {
                 posicoes += 1;
+
+                string phrase = itens;
+
+                string[] words = phrase.Split(';');
+
+                int item = 1;
+
+                foreach (var word in words)
+                {
+                    if (word.ToString().Trim() == opcao)
+                    {
+                        cont += 1;
+                        break;
+                    }
+
+                    item += 1;
+                }
+
+                /*
                 if (posicoes < posicao)
                 {
                     string phrase = itens;
@@ -427,10 +493,9 @@ namespace Fila_Unica_BQ.Views
 
                     foreach (var word in words)
                     {
-                        if (word.ToString().Trim() != "14980")
+                        if (word.ToString().Trim() != lbl_Protocolo.Text.Trim())
                         {
-                            //if (item == 4 && word.ToString().Trim() == opcao) >>> análise considerando a mesma ordem da opção
-                            if (word.ToString().Trim() == opcao) // análise geral - considera todos os candidatos com a mesma opção independente da ordem das opções
+                            if (word.ToString().Trim() == opcao) //análise geral - considera todos os candidatos com a mesma opção independente da ordem das opções
                             {
                                 contador += 1;
                             }
@@ -439,7 +504,9 @@ namespace Fila_Unica_BQ.Views
                         }
                     }
                 }
+                */
             }
+            contador = cont;
         }
 
         public async void Mensagens(string msg, int tipo_titulo, int tipo_msg)

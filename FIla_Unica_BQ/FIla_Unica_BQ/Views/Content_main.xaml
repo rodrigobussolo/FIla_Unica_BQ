@@ -25,14 +25,14 @@
         </StackLayout>
 
         <StackLayout>
-            <Label x:Name="lbl_DataAtualizaco" Padding="15,0" HorizontalOptions="EndAndExpand"/>
+            <Label x:Name="lbl_DataAtualizaco" FontSize="Small" Padding="15,0" HorizontalOptions="EndAndExpand"/>
         </StackLayout>
 
         <AbsoluteLayout>
             <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout >
-                    <StackLayout Padding="20,0,20,10">
-                        <Label TextColor="#2c3e50" FontSize="Medium" Text="Informe o numero do Protocolo"/>
+                    <StackLayout Padding="20,0,20,0">
+                        <Label TextColor="#2c3e50" FontSize="Medium" Text="Informe o número do Protocolo:"/>
 
                         <controls:StandardEntry
                             x:Name="txt_Protocolo"
@@ -40,7 +40,7 @@
                             BorderThickness="1"
                             CornerRadius="8"
                             Placeholder="Protocolo"
-                            FontSize="50"
+                            FontSize="40"
                             Keyboard="Numeric"
                             VerticalTextAlignment="Center"
                             HorizontalTextAlignment="Center"
@@ -69,19 +69,20 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" FontSize="Medium" Text="Posição:" />
+                        <Label Grid.Row="0" Grid.Column="0" FontSize="Body" Text="Posição:" />
                         <Frame  Grid.Row="1" Grid.Column="0">
-                            <Label x:Name="lbl_Posicao" FontSize="20" />
+                            <Label x:Name="lbl_Posicao" FontSize="Body" />
                         </Frame>
 
-                        <Label Grid.Row="0" Grid.Column="1" FontSize="Medium" Text="Protocolo:"/>
+                        <Label Grid.Row="0" Grid.Column="1" FontSize="Body" Text="Protocolo:"/>
                         <Frame Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
-                            <Label x:Name="lbl_Protocolo" FontSize="20" />
+                            <Label x:Name="lbl_Protocolo" FontSize="Body" />
                         </Frame>
                     </Grid>
 
-                    <Grid Padding="20,0,20,20">
+                    <Grid Padding="20,0,20,0">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -112,7 +113,12 @@
                             <Label x:Name="lbl_Opc3" FontSize="Body" />
                         </Frame>
 
-                        <Label Grid.Row="8" Grid.ColumnSpan="2" x:Name="lbl_status" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Row="8" FontSize="Body" Text="Opção 4:"/>
+                        <Frame Grid.Row="9" Grid.ColumnSpan="2">
+                            <Label x:Name="lbl_Opc4" FontSize="Body" />
+                        </Frame>
+
+                        <Label Grid.Row="10" Grid.ColumnSpan="2" x:Name="lbl_status" HorizontalTextAlignment="Center"/>
                     </Grid>
                 </StackLayout>
             </ScrollView>

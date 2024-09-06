@@ -52,8 +52,8 @@ namespace Fila_Unica_BQ
         {
             Limpar();
 
-            Models.Dados_gerais.Titulo = "INCENTIVO";
-            Models.Dados_gerais.SubTitulo = "Este app é gratuito, e sempre será";
+            Models.Dados_gerais.Titulo = "CONTATO";
+            Models.Dados_gerais.SubTitulo = "Fale com o desenvolvedor";
             Models.Dados_gerais.Texto = AppResources.Incentivo;
             Models.Dados_gerais.Origem = 2;
             Current.FlyoutIsPresented = false;
